@@ -10,7 +10,7 @@
     {
       "matches": ["<all_urls>"],
       "all_frames": true,
-      "js": ["scripts/content-script.js", "scripts/helper.js"]
+      "js": ["scripts/content-script.js"]
     }
   ],
   "background": {
@@ -18,5 +18,11 @@
   },
   "action": {
     "default_popup": "popup/popup.html"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["scripts/VocabModal.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

@@ -22,5 +22,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // Get the selected text from the content script
     var selectedText = request.selectionText;
   }
-  sendResponse();
+  // sendResponse();
 });
