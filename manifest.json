@@ -10,7 +10,7 @@
     {
       "matches": ["<all_urls>"],
       "all_frames": true,
-      "js": ["scripts/content-script.js"]
+      "js": ["scripts/content-script.js", "scripts/helper.js"]
     }
   ],
   "background": {
@@ -21,7 +21,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["scripts/VocabModal.js"],
+      "resources": ["scripts/VocabModal.js", "assets/volume-high-solid.svg"],
       "matches": ["<all_urls>"]
     }
   ]

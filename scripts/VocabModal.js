@@ -13,34 +13,45 @@ class ConstructVocabModal extends HTMLElement {
     const modalContent = document.createElement("div");
     modalContent.setAttribute("class", "modal-content");
 
-    // Create word label
-    const wordLabel = document.createElement("label");
-    wordLabel.setAttribute("for", "word");
-    wordLabel.textContent = "Word: ";
+    const vocappHeadingDiv = document.createElement("div");
+    const vocappHeadingText = document.createElement("h3");
+    vocappHeadingDiv.setAttribute("id", "vocapp-heading-div");
+    vocappHeadingText.setAttribute("id", "vocapp-heading-text");
+    vocappHeadingText.innerText = "Vocab App";
+    vocappHeadingDiv.append(vocappHeadingText);
 
-    // Create word input
-    const wordInput = document.createElement("input");
+    // Create word field
+    const wordInput = document.createElement("p");
     wordInput.setAttribute("id", "word");
-    wordInput.setAttribute("type", "text");
 
-    // Create meaning label
-    const meaningLabel = document.createElement("label");
-    meaningLabel.setAttribute("for", "meaning");
-    meaningLabel.textContent = "Meaning: ";
+    //Create field for phoenetics and audio
+    const phoeDiv = document.createElement("div");
+    phoeDiv.setAttribute("id", "phoeDiv");
+    const phoe = document.createElement("span");
+    phoe.setAttribute("id", "phoeText");
+    phoeDiv.append(phoe);
+    const phoeAudio = document.createElement("audio");
+    phoeAudio.setAttribute("id", "phoeAudio");
+    const audioIcon = document.createElement("img");
+    audioIcon.setAttribute("id", "audioIcon");
+    audioIcon.style = "width: 20px;margin-left: 10px;cursor:pointer";
+    phoeDiv.append(phoeAudio);
+    phoeDiv.append(audioIcon);
 
-    // Create meaning input
-    const meaningInput = document.createElement("input");
+    // Create meaning field
+
+    const meaningInput = document.createElement("div");
     meaningInput.setAttribute("id", "meaning");
-    meaningInput.setAttribute("type", "text");
+    meaningInput.innerText = "Please wait. Getting the meaning...";
 
     // Create OK button
     const okButton = document.createElement("button");
     okButton.textContent = "OK";
 
     // Append elements to modal content
-    modalContent.appendChild(wordLabel);
+    modalContent.appendChild(vocappHeadingDiv);
     modalContent.appendChild(wordInput);
-    modalContent.appendChild(meaningLabel);
+    modalContent.appendChild(phoeDiv);
     modalContent.appendChild(meaningInput);
     modalContent.appendChild(okButton);
 
@@ -50,6 +61,11 @@ class ConstructVocabModal extends HTMLElement {
     // Create styles
     const style = document.createElement("style");
     style.textContent = `
+
+        p {
+          margin: 0;
+        }
+
         .modal {
           display: none;
           position: fixed;
@@ -67,17 +83,31 @@ class ConstructVocabModal extends HTMLElement {
           margin: 15% auto;
           padding: 20px;
           border: 1px solid #888;
-          width: 80%;
+          width: 60%;
         }
 
-        input[type=text] {
-          width: 100%;
-          padding: 12px 20px;
-          margin: 8px 0;
-          box-sizing: border-box;
-          border: 2px solid #ccc;
-          border-radius: 4px;
+        #vocapp-heading-div{
+          text-align: center;
+        }
+
+        #word {
+          font-size: 18px;
+          font-weight: 500;
+          text-transform: capitalize;
+          margin: 5px;
+        }
+
+        #phoeDiv{
+          margin-bottom: 10px;
+          display: flex;
+        }
+
+        #meaning {
           font-size: 16px;
+          font-style: italic;
+          color: gray;
+          padding: 20px 10px;
+          border: 1px dashed gray;
         }
 
         button {
@@ -110,16 +140,13 @@ class ConstructVocabModal extends HTMLElement {
 
   connectedCallback() {
     // Show modal when component is connected to the DOM
+    console.log("vocab modal created");
     // this.showModal();
   }
 
-  showModal() {
-    // Show modal
-    const modal = this.shadowRoot.querySelector(".modal");
-    modal.style.display = "block";
+  hideModal() {
+    this.shadowRoot.querySelector(".modal").style.display = "none";
   }
-
-  hideModal() {}
 }
 
 customElements.define("vocab-modal", ConstructVocabModal);
