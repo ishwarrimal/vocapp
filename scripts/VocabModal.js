@@ -1,4 +1,4 @@
-class constructVocabModal extends HTMLElement {
+class ConstructVocabModal extends HTMLElement {
   constructor() {
     super();
 
@@ -110,7 +110,7 @@ class constructVocabModal extends HTMLElement {
 
   connectedCallback() {
     // Show modal when component is connected to the DOM
-    this.showModal();
+    // this.showModal();
   }
 
   showModal() {
@@ -122,4 +122,4 @@ class constructVocabModal extends HTMLElement {
   hideModal() {}
 }
 
-customElements.define("vocab-modal", constructVocabModal);
+customElements.define("vocab-modal", ConstructVocabModal);
