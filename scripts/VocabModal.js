@@ -69,7 +69,7 @@ class ConstructVocabModal extends HTMLElement {
         .modal {
           display: none;
           position: fixed;
-          z-index: 1;
+          z-index: calc(9e999);
           left: 0;
           top: 0;
           width: 100%;
@@ -133,7 +133,6 @@ class ConstructVocabModal extends HTMLElement {
     okButton.addEventListener("click", () => {
       const word = wordInput.value;
       const meaning = meaningInput.value;
-      console.log(`Word: ${word}, Meaning: ${meaning}`);
       this.hideModal();
     });
   }

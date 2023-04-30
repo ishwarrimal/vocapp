@@ -47,7 +47,8 @@ const showWordAndMeaning = async (element, word) => {
   phoeText.innerText = meaningObj?.phoneticText || "";
   phoeAudio.setAttribute("src", meaningObj?.phoneticsAudio || "");
   meaningObj.meaning.forEach((mean) => {
-    meaningElement.innerHTML += `<p>~${mean.definition}</p>`;
+    if (!mean) return;
+    meaningElement.innerHTML += `<p>~${mean?.definition}</p>`;
   });
 };
 
