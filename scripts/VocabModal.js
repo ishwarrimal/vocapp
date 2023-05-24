@@ -48,12 +48,17 @@ class ConstructVocabModal extends HTMLElement {
     const okButton = document.createElement("button");
     okButton.textContent = "OK";
 
+    const bookmarkButton = document.createElement("button");
+    bookmarkButton.setAttribute("id", "bookmarkButton");
+    bookmarkButton.textContent = "Bookmark";
+
     // Append elements to modal content
     modalContent.appendChild(vocappHeadingDiv);
     modalContent.appendChild(wordInput);
     modalContent.appendChild(phoeDiv);
     modalContent.appendChild(meaningInput);
     modalContent.appendChild(okButton);
+    modalContent.appendChild(bookmarkButton);
 
     // Append modal content to modal container
     modalContainer.appendChild(modalContent);
@@ -103,11 +108,15 @@ class ConstructVocabModal extends HTMLElement {
         }
 
         #meaning {
-          font-size: 16px;
+          font-size: 20px;
           font-style: italic;
           color: gray;
           padding: 20px 10px;
           border: 1px dashed gray;
+        }
+
+        #meaning p {
+          margin: 8px 0;
         }
 
         button {
