@@ -74,10 +74,6 @@ const showWordAndMeaning = async () => {
     meaningElement.innerText = "Could not get the meaning. Please try again.";
     return;
   }
-  audioIcon.setAttribute(
-    "src",
-    chrome.runtime.getURL("assets/volume-high-solid.svg")
-  );
   audioIcon.addEventListener("click", () => phoeAudio.play());
   meaningElement.innerText = "";
   phoeText.innerText = meaningObj?.phoneticText || "";
@@ -86,6 +82,10 @@ const showWordAndMeaning = async () => {
     if (!mean) return;
     meaningElement.innerHTML += `<p>~${mean?.definition}</p>`;
   });
+  audioIcon.setAttribute(
+    "src",
+    chrome.runtime.getURL("assets/volume-high-solid.svg")
+  );
 };
 
 const appendVocabModal = () => {
@@ -108,6 +108,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.message === "createVocabModal") {
     // Do something in response to the "extensionInstalled" message
     console.log("Create vocab modal");
+    if (document.querySelector("vocab-modal")) return;
     const script = document.createElement("script");
     script.src = chrome.runtime.getURL("scripts/VocabModal.js");
     document.head.appendChild(script);
