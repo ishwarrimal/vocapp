@@ -23,3 +23,8 @@ h1 {
   display: none;
   background-color: white;
 }
+
+textarea {
+  width: 200px;
+  min-height: 100px;
+}

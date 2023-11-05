@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  let globalWordList;
   // Function to create an accordion element
   function createAccordion(word, definition) {
     const accordion = document.createElement("button");
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function messageFromContent(wordList) {
+    globalWordList = Object.keys(wordList);
     Object.keys(wordList).forEach((word) => {
       const definition = wordList[word].reduce((p, c) => `${p} | ${c}`);
       addAccordionItem(word, definition);
@@ -35,5 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const tabId = tabs[0].id; // Assuming you have one active tab
     const message = { action: "popup_to_content", data: "fetch_word_list" };
     chrome.tabs.sendMessage(tabId, message, messageFromContent);
+  });
+
+  const rephraseButton = document.getElementById("check-sentence");
+  rephraseButton.addEventListener("click", () => {
+    const sentence = document.getElementById("sentence").value;
+    console.log(globalWordList, sentence);
   });
 });
