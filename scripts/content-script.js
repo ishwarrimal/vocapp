@@ -1,6 +1,6 @@
 let clickCount = 0;
 let timeout;
-let wordSelection;
+let currentMeaning = [];
 let selection = {};
 let vocabModal;
 document.addEventListener("click", function () {
@@ -80,6 +80,7 @@ const showWordAndMeaning = async () => {
   phoeAudio.setAttribute("src", meaningObj?.phoneticsAudio || "");
   meaningObj.meaning.forEach((mean) => {
     if (!mean) return;
+    currentMeaning.push(mean?.definition);
     meaningElement.innerHTML += `<p>~${mean?.definition}</p>`;
   });
   audioIcon.setAttribute(
@@ -95,7 +96,7 @@ const appendVocabModal = () => {
 };
 
 const handleBookmarkClicked = () => {
-  console.log("Word to bookmark is -> ", selection.word);
+  addToLocalStorage(selection.word, currentMeaning);
 };
 
 const attachEventListeners = () => {
@@ -105,15 +106,25 @@ const attachEventListeners = () => {
 };
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message.message === "createVocabModal") {
-    // Do something in response to the "extensionInstalled" message
-    console.log("Create vocab modal");
-    if (document.querySelector("vocab-modal")) return;
-    const script = document.createElement("script");
-    script.src = chrome.runtime.getURL("scripts/VocabModal.js");
-    document.head.appendChild(script);
-    if (!document.querySelector("vocab-modal")) {
-      appendVocabModal();
+  if (message.action === "background_to_content") {
+    if (message.data === "create_vocab_modal") {
+      // Do something in response to the "extensionInstalled" message
+      console.log("Create vocab modal");
+      if (document.querySelector("vocab-modal")) return;
+      const script = document.createElement("script");
+      script.src = chrome.runtime.getURL("scripts/VocabModal.js");
+      document.head.appendChild(script);
+      if (!document.querySelector("vocab-modal")) {
+        appendVocabModal();
+      }
+    }
+  }
+  if (message.action === "popup_to_content") {
+    if (message.data === "fetch_word_list") {
+      // Handle the message from the popup script
+      console.log("Message from popup:", message.data);
+      const responseMessage = getAllItemsFromLocalStorage();
+      sendResponse(responseMessage);
     }
   }
 });

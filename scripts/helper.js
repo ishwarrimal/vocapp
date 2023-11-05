@@ -85,3 +85,46 @@ function indexOfAny(
 }
 
 //Functionality helpers end here
+
+//Storage helpers
+function addToLocalStorage(key, value) {
+  // Get the existing data object from local storage, or create a new object if it doesn't exist
+  let dataObject = getAllItemsFromLocalStorage();
+
+  // Check if the key already exists in the data object
+  if (dataObject.hasOwnProperty(key)) {
+    console.log(`Key "${key}" already exists in local storage. Skipping.`);
+  } else {
+    // Key doesn't exist, so add the key-value pair to the data object
+    dataObject[key] = value;
+
+    // Store the updated data object in local storage
+    localStorage.setItem("VocabData", JSON.stringify(dataObject));
+    console.log(
+      `Added "${key}" to local storage with value: ${JSON.stringify(value)}`
+    );
+  }
+}
+
+function getAllItemsFromLocalStorage() {
+  // Get the app-specific data object from local storage
+  const dataObject = JSON.parse(localStorage.getItem("VocabData")) || {};
+
+  // Return all items stored in the data object
+  return dataObject;
+}
+
+function getKeyFromLocalStorage(key) {
+  // Get the app-specific data object from local storage
+  const dataObject = getAllItemsFromLocalStorage();
+
+  // Check if the key exists in the data object
+  if (dataObject.hasOwnProperty(key)) {
+    return dataObject[key];
+  } else {
+    console.log(`Key "${key}" not found in local storage.`);
+    return null;
+  }
+}
+
+//Storage helpers end here

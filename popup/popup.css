@@ -1,11 +1,25 @@
-#text {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
+body {
+  width: 200px;
+  padding: 10px;
 }
 
-#definition {
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 20px;
+h1 {
+  text-align: center;
+}
+
+.accordion {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: none;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  transition: 0.4s;
+}
+
+.panel {
+  padding: 0 10px;
+  display: none;
+  background-color: white;
 }

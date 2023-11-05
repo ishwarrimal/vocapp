@@ -10,7 +10,10 @@ chrome.webNavigation.onCompleted.addListener(
   function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       // Send a message to the content script in the active tab to create the modal
-      chrome.tabs.sendMessage(tabs[0].id, { message: "createVocabModal" });
+      chrome.tabs.sendMessage(tabs[0].id, {
+        action: "background_to_content",
+        data: "create_vocab_modal",
+      });
     });
   },
   { url: [{ schemes: ["http", "https"] }] }
@@ -18,7 +21,7 @@ chrome.webNavigation.onCompleted.addListener(
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log("received messae", request);
-  if (request.message === "showDefinition") {
+  if (request.action === "show_definition") {
     // Get the selected text from the content script
     var selectedText = request.selectionText;
   }
