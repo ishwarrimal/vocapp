@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const rephraseButton = document.getElementById("check-sentence");
   rephraseButton.addEventListener("click", () => {
     const sentence = document.getElementById("sentence").value;
+    //Make an API call the openAI to get the replacement
     console.log(globalWordList, sentence);
   });
 });
